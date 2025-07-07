@@ -1,0 +1,361 @@
+<html lang="en">
+<head>
+    <title>{{testname}} | {{topicname}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/form-static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../static/form-static/css/main.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .enhanced-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-info {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .test-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .question-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .question-text {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .answer-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .answer-input::placeholder {
+            color: #94a3b8;
+            font-style: italic;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .instructions h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .instructions ul {
+            color: #e2e8f0;
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .enhanced-container {
+                padding: 15px;
+            }
+            
+            .question-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .test-title {
+                font-size: 24px;
+            }
+            
+            .question-text {
+                font-size: 16px;
+            }
+            
+            .answer-input {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .submit-btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="enhanced-container">
+    <div class="header-section">
+        <div class="user-info">🎓 Logged in as {{username}}</div>
+        <h1 class="test-title">{{testname}} - Objective Test</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📋 Instructions</h3>
+        <ul>
+            <li>Answer all questions with brief, accurate responses</li>
+            <li>Use one or two words for each answer</li>
+            <li>Review your answers before submitting</li>
+            <li>Click Submit when you're ready to complete the test</li>
+        </ul>
+    </div>
+    
+    <form class="test-form" action="/output" method="POST" enctype="multipart/form-data">
+        <div class="question-card">
+            <div class="question-number">1</div>
+            <div class="question-text">{{question1}}</div>
+            <input 
+                autocomplete="off" 
+                class="answer-input" 
+                type="text" 
+                name="answer1" 
+                id="answer1" 
+                placeholder="Enter your answer here..."
+                required
+            >
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">2</div>
+            <div class="question-text">{{question2}}</div>
+            <input 
+                autocomplete="off" 
+                class="answer-input" 
+                type="text" 
+                name="answer2" 
+                id="answer2" 
+                placeholder="Enter your answer here..."
+                required
+            >
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">3</div>
+            <div class="question-text">{{question3}}</div>
+            <input 
+                autocomplete="off" 
+                class="answer-input" 
+                type="text" 
+                name="answer3" 
+                id="answer3" 
+                placeholder="Enter your answer here..."
+                required
+            >
+        </div>
+        
+        <div class="submit-section">
+            <button type="submit" class="submit-btn">
+                ✓ Submit Test
+            </button>
+        </div>
+    </form>
+
+    <script>
+        // Progress bar animation
+        function updateProgress() {
+            const inputs = document.querySelectorAll('.answer-input');
+            const progressBar = document.getElementById('progressBar');
+            let filledInputs = 0;
+            
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    filledInputs++;
+                }
+            });
+            
+            const progress = (filledInputs / inputs.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        // Add event listeners to all inputs
+        document.querySelectorAll('.answer-input').forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Form submission confirmation
+        document.querySelector('.test-form').addEventListener('submit', function(e) {
+            const inputs = document.querySelectorAll('.answer-input');
+            let emptyInputs = 0;
+            
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    emptyInputs++;
+                }
+            });
+            
+            if (emptyInputs > 0) {
+                const confirmSubmit = confirm(`You have ${emptyInputs} unanswered question(s). Are you sure you want to submit?`);
+                if (!confirmSubmit) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.innerHTML = '⏳ Submitting...';
+            submitBtn.disabled = true;
+        });
+        
+        // Auto-focus first input
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('answer1').focus();
+        });
+        
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('.answer-input').forEach((input, index) => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && index < 2) {
+                    e.preventDefault();
+                    const nextInput = document.getElementById(`answer${index + 2}`);
+                    if (nextInput) {
+                        nextInput.focus();
+                        nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

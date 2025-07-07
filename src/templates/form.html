@@ -1,0 +1,519 @@
+﻿<!-- <html lang="en">
+<head>
+	<title>Automate the examination system</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../static/form-static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../static/form-static/css/main.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="body2">
+	<div class="head-space">
+		<h5>Logged in as.. {{username}}</h5>
+	</div>
+	<div class="contact1 myownfont" style="box-shadow: 5px 8px 32px rgb(255, 94, 0);">
+		<div class="contact1-pic js-tilt" data-tilt>
+			<img src="../static/images/quote.png" alt="IMG">
+		</div>
+		<form style="color:white" class="contact1-form validate-form" action="/generate_test" method="POST" enctype="multipart/form-data">
+			<div class="wrap-input1 validate-input" data-validate="">
+				Select Test Type : 
+				<span>
+					<input type="radio" name="test_id" value="0">Objective Test
+					<input type="radio" name="test_id" value="1">Subjective Test
+				</span>
+			</div>
+			<div class="wrap-input1 validate-input" data-validate="">
+				Select Subject : <br>
+				<blockquote style="padding-left: 50px">
+					<input type="radio" name="subject_id" value="0" id="myCheck4" onclick="myFunction2()">Software Testing<br>
+					<input type="radio" name="subject_id" value="1" id="myCheck3" onclick="myFunction2()">Database System<br>
+					<input type="radio" name="subject_id" value="2" id="myCheck2" onclick="myFunction2()">Machine Learning<br>
+					<input type="radio" name="subject_id" value="99" id="myCheck" onclick="myFunction()"> Create Custom Test
+				</blockquote>
+			</div>
+			<div id="file_br" class="wrap-input1 validate-input" data-validate="Test file is required" style="display:none">
+				<input type="file" name="file" />
+			</div>
+			<div class="container-contact1-form-btn">
+				<button class="contact1-form-newbtn">
+					<span>Take Test<i class="" aria-hidden="true"></i></span>
+				</button>
+				<a href="/" class="contact1-form-newbtn-home">Home</a>
+			</div>
+		</form>
+	</div>
+</body>
+
+	 JavaScript 
+    <script >
+			$('.js-tilt').tilt({
+				scale: 1.1
+			})
+		
+		function formHandler(){
+			// event handler to handle the name field
+			var nameField = document.getElementById("testname");
+			nameField.onfocus = function(){
+				if(nameField.placeholder == "Test Name"){
+					nameField.placeholder = "";
+				}
+			};
+			nameField.onblur = function(){
+				if(nameField.placeholder == ""){
+					nameField.placeholder = "Test Name";
+				}
+			};
+		}
+		// call fucntion after the window has loaded
+		window.onload = function(){
+			formHandler();
+		}
+	</script>
+	<script>
+		function myFunction() {
+			var checkBox = document.getElementById("myCheck");
+			if (checkBox.checked == true){
+				document.getElementById("file_br").style.display="block";
+			}
+		}
+	</script>
+	<script>
+			function myFunction2() {
+				var checkBox2 = document.getElementById("myCheck2");
+				var checkBox3 = document.getElementById("myCheck3");
+				var checkBox4 = document.getElementById("myCheck4");
+				
+				if (checkBox2.checked == true || checkBox3.checked == true || checkBox4.checked == true){
+					document.getElementById("file_br").style.display="none";
+				}
+			}
+		</script>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Configuration - QuizPilot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom-left-radius: 20px;
+            color: white;
+            z-index: 1000;
+        }
+        
+        .header h5 {
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 4rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            min-height: 70vh;
+        }
+        
+        .image-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInLeft 1s ease-out;
+        }
+        
+        .config-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            animation: fadeInRight 1s ease-out;
+        }
+        
+        .card-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .radio-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .radio-option input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            margin-right: 1rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"]:checked {
+            border-color: #00d2d3;
+            background: #00d2d3;
+        }
+        
+        .radio-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        .radio-option.checked {
+            border-color: #00d2d3;
+            background: rgba(0, 210, 211, 0.1);
+        }
+        
+        .radio-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .file-upload {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .file-upload.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .file-upload input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .file-upload:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #10ac84, #00d2d3);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 172, 132, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .illustration {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-section {
+                order: 2;
+            }
+            
+            .config-card {
+                padding: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .header {
+                position: static;
+                border-radius: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .container {
+                padding-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h5>Welcome, {{username}}!</h5>
+    </div>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="image-section">
+                <div class="illustration">
+                    📚
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2 class="card-title">Configure Your Test</h2>
+                
+                <form action="/generate_test" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="form-label">Test Type</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="test_id" value="0" required>
+                                <span class="radio-text">Objective Test</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="test_id" value="1" required>
+                                <span class="radio-text">Subjective Test</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="subject_id" value="0" class="subject-radio" required>
+                                <span class="radio-text">Software Testing</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="subject_id" value="1" class="subject-radio" required>
+                                <span class="radio-text">Database Management System</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="subject_id" value="2" class="subject-radio" required>
+                                <span class="radio-text">Machine Learning</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="subject_id" value="99" class="subject-radio" id="customTest" required>
+                                <span class="radio-text">Custom Test (Upload File)</span>
+                            </label>
+                        </div>
+                        
+                        <div class="file-upload" id="fileUpload">
+                            <p style="color: #e0e0e0; margin-bottom: 1rem;">Upload your test file (.txt format)</p>
+                            <input type="file" name="file" accept=".txt" />
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            Start Test
+                        </button>
+                        <a href="/" class="btn btn-secondary">
+                            Back to Home
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioOptions = document.querySelectorAll('.radio-option');
+            const subjectRadios = document.querySelectorAll('.subject-radio');
+            const customTest = document.getElementById('customTest');
+            const fileUpload = document.getElementById('fileUpload');
+            
+            // Handle radio button styling
+            radioOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Remove checked class from siblings
+                    const siblings = Array.from(this.parentNode.children);
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('checked');
+                    });
+                    
+                    // Add checked class to current option
+                    this.classList.add('checked');
+                });
+            });
+            
+            // Handle custom test file upload
+            subjectRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === '99') {
+                        fileUpload.classList.add('show');
+                    } else {
+                        fileUpload.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Form validation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const testType = document.querySelector('input[name="test_id"]:checked');
+                const subject = document.querySelector('input[name="subject_id"]:checked');
+                
+                if (!testType || !subject) {
+                    e.preventDefault();
+                    alert('Please select both test type and subject.');
+                    return;
+                }
+                
+                if (subject.value === '99') {
+                    const fileInput = document.querySelector('input[name="file"]');
+                    if (!fileInput.files.length) {
+                        e.preventDefault();
+                        alert('Please upload a file for custom test.');
+                        return;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
